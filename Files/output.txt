@@ -1,0 +1,2 @@
+Data read from the input.txt this is is a sample text file that is reading here..
+ Date Created Thu Jan 25 2024 12:49:45 GMT+0530 (India Standard Time)
