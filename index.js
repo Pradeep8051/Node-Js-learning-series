@@ -1,8 +1,8 @@
 const readline = require("readline");
-const fs= require("fs");
+const fs = require("fs");
 const { error } = require("console");
-const http= require("http")
-
+const http = require("http");
+const port = 3000;
 /* Synchronously Read File  */
 
 // const inputFile =fs.readFileSync('./Files/input.txt','utf-8')
@@ -17,7 +17,6 @@ const http= require("http")
 //     console.log(data);
 // })
 // console.log("reading File");
-
 
 /*  read line */
 // const rl = readline.createInterface({
@@ -36,11 +35,24 @@ const http= require("http")
 // })
 
 /* Lecture -8  Creating a Simple web server */
+const html = fs.readFileSync("./Template/index.html", "utf-8");
+const app = http.createServer((req, res) => {
+  // res.end(html);
+  // console.log("New Server Request");
 
-const app= http.createServer((req,res)=>{
-console.log("New Server Request");
-})
+  let path = req.url;
 
-app.listen(3000,()=>{
-    console.log("Server is Running on the 3000");
-})
+  if (path === "/" || path.toLocaleLowerCase() === "/home") {
+    res.end(html.replace("{{%Contents%}}", "You Are in Home Page"));
+  } else if (path.toLocaleLowerCase() === "/about") {
+    res.end(html.replace("{{%Contents%}}", "You Are in About Page"));
+  } else if (path.toLocaleLowerCase() === "/contact") {
+    res.end(html.replace("{{%Contents%}}", "You Are in Contact Page"));
+  } else {
+    res.end(html.replace('{{%Contents%}}',"ERROR 404 Request the currect url path"));
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
