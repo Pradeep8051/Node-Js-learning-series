@@ -43,13 +43,30 @@ const app = http.createServer((req, res) => {
   let path = req.url;
 
   if (path === "/" || path.toLocaleLowerCase() === "/home") {
+    res.writeHead(200,{
+      'Content-type':'text/html',
+      'My-custom-header':'hello world'
+    });
     res.end(html.replace("{{%Contents%}}", "You Are in Home Page"));
   } else if (path.toLocaleLowerCase() === "/about") {
+    res.writeHead(200,{
+      'Content-type':'text/html',
+      'My-custom-header':'hello world'
+    });
+    res.writeHead(200);
     res.end(html.replace("{{%Contents%}}", "You Are in About Page"));
   } else if (path.toLocaleLowerCase() === "/contact") {
+    res.writeHead(200,{
+      'Content-type':'text/html',
+      'My-custom-header':'hello world'
+    });
+    res.writeHead(200)
     res.end(html.replace("{{%Contents%}}", "You Are in Contact Page"));
   } else {
-    res.end(html.replace('{{%Contents%}}',"ERROR 404 Request the currect url path"));
+    res.writeHead(400)
+    res.end(
+      html.replace("{{%Contents%}}", "ERROR 404 Request the currect url path")
+    );
   }
 });
 
